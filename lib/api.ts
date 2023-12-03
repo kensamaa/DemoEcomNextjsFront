@@ -1,3 +1,4 @@
+"use server";
 async function fetchAPI(
   query: string,
   { variables } = {} as any,
@@ -27,20 +28,30 @@ async function fetchAPI(
 
   return json.data;
 }
-
-export async function getAllPostsWithSlug() {
-  const data = await fetchAPI(
-    `
-        query PostSlugs {
-          listPosts {
-            data {
-              slug
-            }
+export async function getData() {
+  console.log("test");
+  const res = await fetch(
+    "https://ecomtest-68c29f.ingress-haven.ewp.live/graphql",
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      cache: "force-cache",
+      body: JSON.stringify({
+        query: `
+      query Getproducts {
+        products {
+          nodes {
+            name
+            id
+            menuOrder
           }
         }
-      `,
-    {},
-    false
+      }
+          `,
+      }),
+    }
   );
-  return data?.listPosts.data;
+  const json = await res.json();
+
+  return json.data.products;
 }

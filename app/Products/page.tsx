@@ -1,11 +1,19 @@
 import Headerr from "../_components/Headerr";
-import { gql, useQuery } from "@apollo/client";
-
-export default function Home() {
+import { getData } from "../../lib/api";
+export default async function Home() {
+  const products = await getData();
+  console.log(products);
   return (
     <div>
       <Headerr />
-      <>products</>
+
+      {products.nodes.map((product) => {
+        return (
+          <ul key={product.id}>
+            <li>{product.name}</li>
+          </ul>
+        );
+      })}
     </div>
   );
 }
