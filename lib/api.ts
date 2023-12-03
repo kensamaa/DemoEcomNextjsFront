@@ -44,6 +44,9 @@ export async function getData() {
             name
             id
             menuOrder
+            image{
+              sourceUrl
+            }
           }
         }
       }

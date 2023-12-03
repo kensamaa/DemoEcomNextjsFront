@@ -2,7 +2,7 @@
 const Foot = () => {
   return (
     <>
-      <div>footer</div>
+      <div className="bg-success">footer</div>
     </>
   );
 };
